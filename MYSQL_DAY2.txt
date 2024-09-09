@@ -1,0 +1,100 @@
+Create a database with the name Employee.
+
+mysql> CREATE DATABASE Employee;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++-------------------------+
+| Database                |
++-------------------------+      
+| Employee                |                   
++-------------------------+
+1 rows in set (0.01 sec)
+
+mysql> USE Employee;
+Database changed
+
+mysql> CREATE TABLE Employee (
+    ->     emp_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     first_name VARCHAR(50) NOT NULL,
+    ->     last_name VARCHAR(50) NOT NULL,
+    ->     age INT NOT NULL CHECK (age >= 0),
+    ->     email VARCHAR(100) UNIQUE NOT NULL
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> DESCRIBE EMPLOYEE;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| emp_id     | int          | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(50)  | NO   |     | NULL    |                |
+| last_name  | varchar(50)  | NO   |     | NULL    |                |
+| age        | int          | NO   |     | NULL    |                |
+| email      | varchar(100) | NO   | UNI | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+Task 1: Insert Data Write an SQL INSERT statement to insert data into the Employee table. 
+
+mysql> INSERT INTO Employee (first_name, last_name, age, email)
+    -> VALUES
+    -> ('John', 'Doe', 30, 'john.doe@example.com'),
+    -> ('Jane', 'Smith', 25, 'jane.smith@example.com'),
+    -> ('Emily', 'Jones', 35, 'emily.jones@example.com'),
+    -> ('Michael', 'Brown', 40, 'michael.brown@example.com'),
+    -> ('Linda', 'Davis', 28, 'linda.davis@example.com');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+Task 2: Retrieving Data Write an SQL SELECT statement to retrieve the first_name and last_name of all employees from the Employee table. 
+
+mysql> SELECT first_name, last_name
+    -> FROM Employee;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| John       | Doe       |
+| Jane       | Smith     |
+| Emily      | Jones     |
+| Michael    | Brown     |
+| Linda      | Davis     |
++------------+-----------+
+5 rows in set (0.00 sec)
+
+Task 3: Filtering Data Write an SQL SELECT statement to retrieve the first_name, last_name, and age of employees who are older than 30 years.
+
+mysql> SELECT first_name, last_name, age
+    -> FROM Employee
+    -> WHERE age > 30;
++------------+-----------+-----+
+| first_name | last_name | age |
++------------+-----------+-----+
+| Emily      | Jones     |  35 |
+| Michael    | Brown     |  40 |
++------------+-----------+-----+
+2 rows in set (0.00 sec)
+
+Task 4: Updating Data Write an SQL UPDATE statement to increase the age of employees by 1 year for all employees older than 25. 
+
+mysql> UPDATE Employee
+    -> SET age = age + 1
+    -> WHERE age > 25;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT *  FROM EMPLOYEE;
++--------+------------+-----------+-----+---------------------------+
+| emp_id | first_name | last_name | age | email                     |
++--------+------------+-----------+-----+---------------------------+
+|      1 | John       | Doe       |  31 | john.doe@example.com      |
+|      2 | Jane       | Smith     |  25 | jane.smith@example.com    |
+|      3 | Emily      | Jones     |  36 | emily.jones@example.com   |
+|      4 | Michael    | Brown     |  41 | michael.brown@example.com |
+|      5 | Linda      | Davis     |  29 | linda.davis@example.com   |
++--------+------------+-----------+-----+---------------------------+
+5 rows in set (0.00 sec)
+
+mysql> EXIT;
